@@ -4,7 +4,7 @@ const formatNumber = (number) => {
 
 const getSecondsToHome = () => {
   const currentDate = new Date();
-  const endDate = new Date("Sun Jan 26 2025 00:00:00 GMT+0700 (Giờ Đông Dương)");
+  const endDate = new Date("Sun Jan 28 2025 10:00:00 GMT+0700 (Giờ Đông Dương)");
 
   return ((endDate.getTime() - currentDate.getTime()) / 1000).toFixed(0);
 }
