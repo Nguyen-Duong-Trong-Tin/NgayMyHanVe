@@ -2,14 +2,15 @@ const formatNumber = (number) => {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
-const getSecondsToHome = () => {
+const getHoursToHome = () => {
   const currentDate = new Date();
-  const endDate = new Date("Sun Jan 28 2025 10:00:00 GMT+0700 (Giờ Đông Dương)");
+  const endDate = new Date("2025-08-10T00:00:00+07:00");
 
-  return ((endDate.getTime() - currentDate.getTime()) / 1000).toFixed(0);
+  const hours = (endDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60);
+  return Math.max(0, Math.floor(hours)); // làm tròn xuống và tránh âm
 }
 
-const seconds = document.querySelector("#seconds");
+const hoursElement = document.querySelector("#seconds");
 setInterval(() => {
-  seconds.innerHTML = formatNumber(getSecondsToHome()) + " s";
+  hoursElement.innerHTML = formatNumber(getHoursToHome()) + " giờ";
 }, 1000);
