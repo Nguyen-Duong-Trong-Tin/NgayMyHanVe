@@ -1,16 +1,28 @@
 const formatNumber = (number) => {
-  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-}
+  return number.toString().padStart(2, "0"); // luôn có 2 chữ số
+};
 
-const getHoursToHome = () => {
+const getTimeToHome = () => {
   const currentDate = new Date();
   const endDate = new Date("2025-08-10T00:00:00+07:00");
 
-  const hours = (endDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60);
-  return Math.max(0, Math.floor(hours)); // làm tròn xuống và tránh âm
-}
+  let diff = Math.max(0, endDate.getTime() - currentDate.getTime()); // tránh âm
 
-const hoursElement = document.querySelector("#seconds");
+  const totalSeconds = Math.floor(diff / 1000);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  return {
+    hours: formatNumber(hours),
+    minutes: formatNumber(minutes),
+    seconds: formatNumber(seconds),
+  };
+};
+
+const countdownElement = document.querySelector("#seconds");
+
 setInterval(() => {
-  hoursElement.innerHTML = formatNumber(getHoursToHome()) + " giờ";
+  const { hours, minutes, seconds } = getTimeToHome();
+  countdownElement.innerHTML = `${hours} giờ : ${minutes} phút : ${seconds} giây`;
 }, 1000);
