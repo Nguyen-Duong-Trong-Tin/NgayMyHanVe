@@ -8,7 +8,6 @@ const getTimeToHome = () => {
 
   let diff = Math.max(0, endDate.getTime() - currentDate.getTime()); // tránh âm
 
-  const totalMilliseconds = diff;
   const totalSeconds = Math.floor(diff / 1000);
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -18,16 +17,22 @@ const getTimeToHome = () => {
     hours: formatNumber(hours),
     minutes: formatNumber(minutes),
     seconds: formatNumber(seconds),
-    milliseconds: totalMilliseconds, // thêm số mili giây
+    milliseconds: diff, // còn lại theo ms
   };
 };
 
 const countdownElement = document.querySelector("#seconds");
+const millisecondsElement = document.createElement("div");
+countdownElement.appendChild(millisecondsElement);
 
+// Cập nhật theo giây
 setInterval(() => {
-  const { hours, minutes, seconds, milliseconds } = getTimeToHome();
-  countdownElement.innerHTML = `
-    ${hours} giờ : ${minutes} phút : ${seconds} giây<br/>
-    ${milliseconds}
-  `;
+  const { hours, minutes, seconds } = getTimeToHome();
+  countdownElement.firstChild.textContent = `${hours} giờ : ${minutes} phút : ${seconds} giây`;
 }, 1000);
+
+// Cập nhật từng mili giây
+setInterval(() => {
+  const { milliseconds } = getTimeToHome();
+  millisecondsElement.textContent = `${milliseconds} mili giây còn lại`;
+}, 1);
