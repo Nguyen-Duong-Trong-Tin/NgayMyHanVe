@@ -28,11 +28,11 @@ countdownElement.appendChild(millisecondsElement);
 // Cập nhật theo giây
 setInterval(() => {
   const { hours, minutes, seconds } = getTimeToHome();
-  countdownElement.firstChild.textContent = `${hours} giờ : ${minutes} phút : ${seconds} giây`;
+  countdownElement.firstChild.textContent = `${hours} h : ${minutes} m : ${seconds} s`;
 }, 1000);
 
 // Cập nhật từng mili giây
 setInterval(() => {
   const { milliseconds } = getTimeToHome();
-  millisecondsElement.textContent = `${milliseconds} mili giây còn lại`;
+  millisecondsElement.textContent = `${milliseconds} mls`;
 }, 1);
