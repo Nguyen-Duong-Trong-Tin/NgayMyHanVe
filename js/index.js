@@ -8,6 +8,7 @@ const getTimeToHome = () => {
 
   let diff = Math.max(0, endDate.getTime() - currentDate.getTime()); // tránh âm
 
+  const totalMilliseconds = diff;
   const totalSeconds = Math.floor(diff / 1000);
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -17,12 +18,16 @@ const getTimeToHome = () => {
     hours: formatNumber(hours),
     minutes: formatNumber(minutes),
     seconds: formatNumber(seconds),
+    milliseconds: totalMilliseconds, // thêm số mili giây
   };
 };
 
 const countdownElement = document.querySelector("#seconds");
 
 setInterval(() => {
-  const { hours, minutes, seconds } = getTimeToHome();
-  countdownElement.innerHTML = `${hours} giờ : ${minutes} phút : ${seconds} giây`;
+  const { hours, minutes, seconds, milliseconds } = getTimeToHome();
+  countdownElement.innerHTML = `
+    ${hours} giờ : ${minutes} phút : ${seconds} giây<br/>
+    ${milliseconds}
+  `;
 }, 1000);
