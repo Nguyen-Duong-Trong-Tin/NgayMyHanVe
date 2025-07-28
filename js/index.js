@@ -4,7 +4,7 @@ const formatNumber = (number) => {
 
 const getTimeToHome = () => {
   const currentDate = new Date();
-  const endDate = new Date("2025-08-10T00:00:00+07:00");
+  const endDate = new Date("2025-08-11T00:00:00+07:00");
 
   let diff = Math.max(0, endDate.getTime() - currentDate.getTime()); // tránh âm
 
